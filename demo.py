@@ -1,0 +1,16 @@
+from ledgerParser import Ledger
+
+ledger = Ledger()
+ledger.parseRandomLedger(entitiesFile = './data/entities.csv', ledgerFile = './data/transactions.csv', startDate='2021-04-01')
+ledger.printBalanceAtDate('2021-04-01')
+print()
+ledger.printBalanceAtDate('2021-04-02')
+print()
+ledger.printBalanceAtDate('2021-04-03')
+print()
+ledger.printBalanceAtDate('2021-04-04')
+print()
+ledger.printBalanceAtDate('2021-04-05')
+print()
+ledger.printBalanceAtDate('2021-04-15')
+print()
