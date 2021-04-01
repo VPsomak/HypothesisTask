@@ -128,6 +128,9 @@ class Entity:
         ------
         IOError
             If a file specified could not be found or opened.
+        Exception
+            If name, type or startingBalance is not present in the headers of the entities csv 
+            or sender and/or receiver is not present in the transactions csv.
         """
         entities = []
         if entitiesFile is not None:
@@ -137,6 +140,8 @@ class Entity:
                     for rowIndex,row in enumerate(csv_reader):
                         if rowIndex == 0:
                             headers = row
+                            if 'name' not in headers or 'type' not in headers or 'startingBalance' not in headers:
+                                raise Exception('name, type and startingBalance must be contained as headers in the entities CSV.')
                         else:
                             entities.append(Entity(row[headers.index('name')],row[headers.index('type')],float(row[headers.index('startingBalance')])))
             except:
@@ -148,6 +153,8 @@ class Entity:
                     for rowIndex,row in enumerate(csv_reader):
                         if rowIndex == 0:
                             headers = row
+                            if 'sender' not in headers or 'receiver' not in headers or 'startingBalance' not in headers:
+                                raise Exception('sender and receiver must be contained as headers in the transactions CSV.')
                         else:
                             entities.append(Entity(row[headers.index('sender')],None,0.0))
                             entities.append(Entity(row[headers.index('receiver')],None,0.0))

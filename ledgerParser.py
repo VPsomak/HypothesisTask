@@ -106,7 +106,7 @@ class Ledger:
         Raises
         ----------
         Exception
-            If the date is not provided.
+            If the date is not provided or sender, receiver, date and/or amount is not present in the ledger csv.
         ValueError 
             If the format specified does not match the date's format.
         IOError
@@ -124,6 +124,8 @@ class Ledger:
                 for rowIndex,row in enumerate(csv_reader):
                     if rowIndex == 0:
                         headers = row
+                        if 'sender' not in headers or 'receiver' not in headers or 'date' not in headers or 'amount' not in headers :
+                            raise Exception('sender, receiver, date and amount must be contained as headers in the ledger CSV.')
                     else:
                         sender = self.getEntityByName(row[headers.index('sender')])
                         receiver = self.getEntityByName(row[headers.index('receiver')])
